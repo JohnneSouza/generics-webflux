@@ -1,12 +1,12 @@
 package com.example.webflux.core;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Repository
+@NoRepositoryBean
 public interface BaseRepository<T extends BaseEntity> extends ReactiveCrudRepository<T, ObjectId> {
 
     <S extends T> Mono<S> save(S s);
