@@ -1,0 +1,284 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v1
+  contact:
+    name: Johnnes Souza
+    email: jhonnesf5@gmail.com
+    url: 'https://github.com/JohnneSouza'
+  license:
+    name: MIT License
+    url: >-
+      https://raw.githubusercontent.com/JohnneSouza/quarkus-easy-ecom/main/LICENSE
+  description: >-
+    A functional example of a Generic Repository implementation, using Spring
+    and WebFlux.
+servers:
+  - url: 'http://localhost:8080'
+    description: Generated server url
+paths:
+  /sales:
+    get:
+      tags:
+        - sales-resource
+      operationId: findAll
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sale'
+      parameters: []
+    post:
+      tags:
+        - sales-resource
+      operationId: save
+      parameters:
+        - name: Auth
+          in: header
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sale'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sale'
+    summary: Find Sales
+    description: Retrieve all sales.
+  /products:
+    get:
+      tags:
+        - product-resource
+      operationId: findAll_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+      parameters: []
+    post:
+      tags:
+        - product-resource
+      operationId: save_1
+      parameters:
+        - name: Auth
+          in: header
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+  /customers:
+    get:
+      tags:
+        - customer-resource
+      operationId: findAll_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+      parameters: []
+    post:
+      tags:
+        - customer-resource
+      operationId: save_2
+      parameters:
+        - name: Auth
+          in: header
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Customer'
+  '/sales/{key}':
+    get:
+      tags:
+        - sales-resource
+      operationId: findByKey
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sale'
+  '/sales/{id}':
+    get:
+      tags:
+        - sales-resource
+      operationId: findById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Sale'
+  '/products/{id}':
+    get:
+      tags:
+        - product-resource
+      operationId: findById_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+  '/customers/{id}':
+    get:
+      tags:
+        - customer-resource
+      operationId: findById_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Customer'
+  '/customers/lastName/{lastName}':
+    get:
+      tags:
+        - customer-resource
+      operationId: findByLastName
+      parameters:
+        - name: lastName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+  '/customers/firstName/{firstName}':
+    get:
+      tags:
+        - customer-resource
+      operationId: findByFirstName
+      parameters:
+        - name: firstName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+components:
+  schemas:
+    Sale:
+      type: object
+      properties:
+        id:
+          type: object
+        key:
+          type: string
+    Product:
+      required:
+        - value
+      type: object
+      properties:
+        id:
+          type: object
+        category:
+          type: string
+        color:
+          type: string
+        value:
+          type: number
+          format: double
+    Customer:
+      required:
+        - firstName
+      type: object
+      properties:
+        id:
+          type: object
+        firstName:
+          type: string
+        lastName:
+          type: string
+  links: {}
+  callbacks: {}
+security: []
